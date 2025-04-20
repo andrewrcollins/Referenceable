@@ -17,9 +17,9 @@ class ModelReferenceServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('model-reference')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_model_reference_table')
-            ->hasCommand(ModelReferenceCommand::class);
+            ->hasConfigFile();
+//            ->hasViews()
+//            ->hasMigration('create_model_reference_table')
+//            ->hasCommand(ModelReferenceCommand::class);
     }
 }
