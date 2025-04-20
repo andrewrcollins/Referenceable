@@ -28,5 +28,5 @@ return [
     'separator' => '-',
 
     // The characters to use for generating references
-    'characters' => '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    'characters' => '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
 ];

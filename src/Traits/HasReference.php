@@ -3,7 +3,6 @@
 namespace MoSaid\ModelReference\Traits;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 trait HasReference
 {
@@ -43,9 +42,13 @@ trait HasReference
 
             // Combine parts
             $parts = [];
-            if (!empty($prefix)) $parts[] = $prefix;
+            if (! empty($prefix)) {
+                $parts[] = $prefix;
+            }
             $parts[] = $code;
-            if (!empty($suffix)) $parts[] = $suffix;
+            if (! empty($suffix)) {
+                $parts[] = $suffix;
+            }
 
             $reference = implode($separator, $parts);
 
