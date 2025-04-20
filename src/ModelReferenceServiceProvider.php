@@ -2,9 +2,9 @@
 
 namespace MoSaid\ModelReference;
 
+use MoSaid\ModelReference\Commands\ModelReferenceCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use MoSaid\ModelReference\Commands\ModelReferenceCommand;
 
 class ModelReferenceServiceProvider extends PackageServiceProvider
 {
