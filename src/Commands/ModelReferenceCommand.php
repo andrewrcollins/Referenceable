@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace MoSaid\ModelReference\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class ModelReferenceCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'model-reference';
 
     public $description = 'My command';
 
