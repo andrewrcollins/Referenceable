@@ -11,9 +11,9 @@ trait HasReference
      */
     protected static function bootHasReference(): void
     {
-        static::creating(function (Model $model) {
-            // Get the column name from model property or config
-            $column = $model->referenceColumn ?? config('model-reference.column_name', 'reference');
+        static::creating(function (Model $model): void {
+            // Get the column name from model method, property or config
+            $column = $model->getReferenceColumn();
 
             // Only generate reference if the column exists and is empty
             if (empty($model->{$column})) {
@@ -27,13 +27,13 @@ trait HasReference
      */
     public static function generateReference(Model $model): string
     {
-        // Get configuration (from model properties or config file)
-        $prefix = $model->referencePrefix ?? config('model-reference.prefix', '');
-        $suffix = $model->referenceSuffix ?? config('model-reference.suffix', '');
-        $separator = $model->referenceSeparator ?? config('model-reference.separator', '-');
-        $length = $model->referenceLength ?? config('model-reference.length', 6);
-        $characters = $model->referenceCharacters ?? config('model-reference.characters', '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-        $column = $model->referenceColumn ?? config('model-reference.column_name', 'reference');
+        // Get configuration (from model methods, properties or config file)
+        $prefix = $model->getReferencePrefix();
+        $suffix = $model->getReferenceSuffix();
+        $separator = $model->getReferenceSeparator();
+        $length = $model->getReferenceLength();
+        $characters = $model->getReferenceCharacters();
+        $column = $model->getReferenceColumn();
 
         // Generate unique code
         do {
@@ -72,5 +72,53 @@ trait HasReference
         }
 
         return $randomString;
+    }
+
+    /**
+     * Get the reference prefix.
+     */
+    public function getReferencePrefix(): string
+    {
+        return $this->referencePrefix ?? config('model-reference.prefix', '');
+    }
+
+    /**
+     * Get the reference suffix.
+     */
+    public function getReferenceSuffix(): string
+    {
+        return $this->referenceSuffix ?? config('model-reference.suffix', '');
+    }
+
+    /**
+     * Get the reference separator.
+     */
+    public function getReferenceSeparator(): string
+    {
+        return $this->referenceSeparator ?? config('model-reference.separator', '-');
+    }
+
+    /**
+     * Get the reference length.
+     */
+    public function getReferenceLength(): int
+    {
+        return $this->referenceLength ?? config('model-reference.length', 6);
+    }
+
+    /**
+     * Get the reference characters.
+     */
+    public function getReferenceCharacters(): string
+    {
+        return $this->referenceCharacters ?? config('model-reference.characters', '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    }
+
+    /**
+     * Get the reference column name.
+     */
+    public function getReferenceColumn(): string
+    {
+        return $this->referenceColumn ?? config('model-reference.column_name', 'reference');
     }
 }
