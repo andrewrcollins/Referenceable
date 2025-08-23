@@ -1,10 +1,14 @@
 {
     "name": "eg-mohamed/model-reference",
-    "description": "Easily Generate Reference Number with customization to your model",
+    "description": "Advanced Laravel package for generating customizable model reference numbers with flexible formats, sequential numbering, and comprehensive configuration options",
     "keywords": [
         "MoSaid",
         "laravel",
-        "model-reference"
+        "model-reference",
+        "reference-generator",
+        "unique-identifiers",
+        "sequential-numbering",
+        "model-traits"
     ],
     "homepage": "https://github.com/eg-mohamed/model-reference",
     "license": "MIT",
