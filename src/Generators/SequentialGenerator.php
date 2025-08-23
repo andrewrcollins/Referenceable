@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace MoSaid\ModelReference\Generators;
+namespace MohamedSaid\Referenceable\Generators;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use MoSaid\ModelReference\Contracts\ReferenceGeneratorInterface;
-use MoSaid\ModelReference\Exceptions\ReferenceGenerationException;
+use MohamedSaid\Referenceable\Contracts\ReferenceGeneratorInterface;
+use MohamedSaid\Referenceable\Exceptions\ReferenceGenerationException;
 
 class SequentialGenerator implements ReferenceGeneratorInterface
 {
@@ -23,19 +23,19 @@ class SequentialGenerator implements ReferenceGeneratorInterface
 
         $modelClass = get_class($model);
         $resetKey = $this->getResetKey($resetFreq);
-        
+
         $counterKey = $modelClass . ($resetKey ? ":{$resetKey}" : '');
 
         $nextNumber = $this->getNextSequentialNumber(
-            $counterTable, 
-            $counterKey, 
+            $counterTable,
+            $counterKey,
             $start
         );
 
         $formattedNumber = str_pad((string) $nextNumber, $minDigits, '0', STR_PAD_LEFT);
-        
+
         $parts = array_filter([$prefix, $formattedNumber, $suffix]);
-        
+
         return implode($separator, $parts);
     }
 
@@ -60,7 +60,7 @@ class SequentialGenerator implements ReferenceGeneratorInterface
     {
         return DB::transaction(function () use ($table, $key, $start) {
             $this->ensureCounterTableExists($table);
-            
+
             $counter = DB::table($table)
                 ->where('key', $key)
                 ->lockForUpdate()
@@ -73,12 +73,12 @@ class SequentialGenerator implements ReferenceGeneratorInterface
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
-                
+
                 return $start;
             }
 
             $nextValue = $counter->value + 1;
-            
+
             DB::table($table)
                 ->where('key', $key)
                 ->update([
@@ -104,7 +104,7 @@ class SequentialGenerator implements ReferenceGeneratorInterface
     {
         if (!DB::getSchemaBuilder()->hasTable($table)) {
             throw ReferenceGenerationException::configurationError(
-                "Counter table '{$table}' does not exist. Run: php artisan model-reference:install"
+                "Counter table '{$table}' does not exist. Run: php artisan referenceable:install"
             );
         }
     }

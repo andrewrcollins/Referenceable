@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MoSaid\ModelReference\Exceptions;
+namespace MohamedSaid\Referenceable\Exceptions;
 
 use Exception;
 
@@ -14,7 +14,7 @@ class ReferenceValidationException extends Exception
         if ($pattern) {
             $message .= " (expected pattern: {$pattern})";
         }
-        
+
         return new self($message);
     }
 

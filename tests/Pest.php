@@ -1,5 +1,5 @@
 <?php
 
-use MoSaid\ModelReference\Tests\TestCase;
+use MohamedSaid\Referenceable\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MoSaid\ModelReference\Generators;
+namespace MohamedSaid\Referenceable\Generators;
 
 use Illuminate\Database\Eloquent\Model;
-use MoSaid\ModelReference\Contracts\ReferenceGeneratorInterface;
-use MoSaid\ModelReference\Exceptions\ReferenceGenerationException;
+use MohamedSaid\Referenceable\Contracts\ReferenceGeneratorInterface;
+use MohamedSaid\Referenceable\Exceptions\ReferenceGenerationException;
 
 class RandomGenerator implements ReferenceGeneratorInterface
 {
@@ -19,13 +19,13 @@ class RandomGenerator implements ReferenceGeneratorInterface
         $characters = $config['characters'] ?? '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $excludedChars = $config['excluded_characters'] ?? '';
         $case = $config['case'] ?? 'upper';
-        
+
         if (!empty($excludedChars)) {
             $characters = str_replace(str_split($excludedChars), '', $characters);
         }
 
         $code = $this->generateRandomString($length, $characters);
-        
+
         $code = match($case) {
             'lower' => strtolower($code),
             'upper' => strtoupper($code),
@@ -33,7 +33,7 @@ class RandomGenerator implements ReferenceGeneratorInterface
         };
 
         $parts = array_filter([$prefix, $code, $suffix]);
-        
+
         return implode($separator, $parts);
     }
 

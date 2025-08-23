@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace MoSaid\ModelReference;
+namespace MohamedSaid\Referenceable;
 
-use MoSaid\ModelReference\Commands\GenerateCommand;
-use MoSaid\ModelReference\Commands\InstallCommand;
-use MoSaid\ModelReference\Commands\ModelReferenceCommand;
-use MoSaid\ModelReference\Commands\RegenerateCommand;
-use MoSaid\ModelReference\Commands\StatsCommand;
-use MoSaid\ModelReference\Commands\ValidateCommand;
+use MohamedSaid\Referenceable\Commands\GenerateCommand;
+use MohamedSaid\Referenceable\Commands\InstallCommand;
+use MohamedSaid\Referenceable\Commands\ModelReferenceCommand;
+use MohamedSaid\Referenceable\Commands\RegenerateCommand;
+use MohamedSaid\Referenceable\Commands\StatsCommand;
+use MohamedSaid\Referenceable\Commands\ValidateCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -18,7 +18,7 @@ class ModelReferenceServiceProvider extends PackageServiceProvider
     public function configurePackage(Package $package): void
     {
         $package
-            ->name('model-reference')
+            ->name('referenceable')
             ->hasConfigFile()
             ->hasCommands([
                 ModelReferenceCommand::class,
@@ -33,22 +33,22 @@ class ModelReferenceServiceProvider extends PackageServiceProvider
     public function register(): void
     {
         parent::register();
-        
+
         $this->app->singleton(ModelReference::class, function ($app) {
             return new ModelReference();
         });
-        
-        $this->app->alias(ModelReference::class, 'model-reference');
+
+        $this->app->alias(ModelReference::class, 'referenceable');
     }
 
     public function boot(): void
     {
         parent::boot();
-        
+
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                $this->package->basePath('/../config/model-reference.php') => config_path('model-reference.php'),
-            ], 'model-reference-config');
+                $this->package->basePath('/../config/referenceable.php') => config_path('referenceable.php'),
+            ], 'referenceable-config');
         }
     }
 }

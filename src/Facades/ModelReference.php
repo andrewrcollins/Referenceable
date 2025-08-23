@@ -1,16 +1,16 @@
 <?php
 
-namespace MoSaid\ModelReference\Facades;
+namespace MohamedSaid\Referenceable\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \MoSaid\ModelReference\ModelReference
+ * @see \MohamedSaid\Referenceable\ModelReference
  */
 class ModelReference extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return \MoSaid\ModelReference\ModelReference::class;
+        return \MohamedSaid\Referenceable\ModelReference::class;
     }
 }

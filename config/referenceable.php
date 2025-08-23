@@ -1,6 +1,6 @@
 <?php
 
-// config for MoSaid/ModelReference
+// config for MohamedSaid/Referenceable
 return [
     /*
     |--------------------------------------------------------------------------
@@ -188,7 +188,7 @@ return [
         'enabled' => true,
 
         // Event classes to dispatch
-        'reference_generating' => \MoSaid\ModelReference\Events\ReferenceGenerating::class,
-        'reference_generated' => \MoSaid\ModelReference\Events\ReferenceGenerated::class,
+        'reference_generating' => \MohamedSaid\Referenceable\Events\ReferenceGenerating::class,
+        'reference_generated' => \MohamedSaid\Referenceable\Events\ReferenceGenerated::class,
     ],
 ];

@@ -1,9 +1,9 @@
 <?php
 
-namespace MoSaid\ModelReference\Tests;
+namespace MohamedSaid\Referenceable\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use MoSaid\ModelReference\ModelReferenceServiceProvider;
+use MohamedSaid\Referenceable\ModelReferenceServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MoSaid\ModelReference\Events;
+namespace MohamedSaid\Referenceable\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Database\Eloquent\Model;

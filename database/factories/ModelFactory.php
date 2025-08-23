@@ -1,6 +1,6 @@
 <?php
 
-namespace MoSaid\ModelReference\Database\Factories;
+namespace MohamedSaid\Referenceable\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

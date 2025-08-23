@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MoSaid\ModelReference\Contracts;
+namespace MohamedSaid\Referenceable\Contracts;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace MoSaid\ModelReference;
+namespace MohamedSaid\Referenceable;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use MoSaid\ModelReference\Contracts\ReferenceGeneratorInterface;
-use MoSaid\ModelReference\Exceptions\ReferenceGenerationException;
-use MoSaid\ModelReference\Exceptions\ReferenceValidationException;
-use MoSaid\ModelReference\Generators\RandomGenerator;
-use MoSaid\ModelReference\Generators\SequentialGenerator;
-use MoSaid\ModelReference\Generators\TemplateGenerator;
+use MohamedSaid\Referenceable\Contracts\ReferenceGeneratorInterface;
+use MohamedSaid\Referenceable\Exceptions\ReferenceGenerationException;
+use MohamedSaid\Referenceable\Exceptions\ReferenceValidationException;
+use MohamedSaid\Referenceable\Generators\RandomGenerator;
+use MohamedSaid\Referenceable\Generators\SequentialGenerator;
+use MohamedSaid\Referenceable\Generators\TemplateGenerator;
 
 class ModelReference
 {
@@ -31,21 +31,21 @@ class ModelReference
         $generator = $this->getGenerator($config['strategy']);
         $column = $config['column_name'];
         $maxRetries = $config['max_retries'];
-        
+
         $attempts = 0;
-        
+
         do {
             $attempts++;
             $reference = $generator->generate($model, $config);
-            
+
             if (!$this->referenceExists($model, $reference, $config)) {
                 return $reference;
             }
-            
+
             if ($attempts >= $maxRetries) {
                 throw ReferenceGenerationException::maxRetriesReached($maxRetries);
             }
-            
+
         } while (true);
     }
 
@@ -54,10 +54,10 @@ class ModelReference
         if (empty($config)) {
             $config = $this->getConfig();
         }
-        
+
         $strategy = $config['strategy'] ?? 'random';
         $generator = $this->getGenerator($strategy);
-        
+
         return $generator->validate($reference, $config);
     }
 
@@ -66,11 +66,11 @@ class ModelReference
         $references = collect();
         $model = new $modelClass();
         $finalConfig = array_merge($this->getModelConfig($model), $config);
-        
+
         for ($i = 0; $i < $count; $i++) {
             $references->push($this->generate($model));
         }
-        
+
         return $references;
     }
 
@@ -78,9 +78,9 @@ class ModelReference
     {
         $newReference = $this->generate($model);
         $column = $model->getReferenceColumn();
-        
+
         $model->update([$column => $newReference]);
-        
+
         return $newReference;
     }
 
@@ -89,14 +89,14 @@ class ModelReference
         $model = new $modelClass();
         $column = $model->getReferenceColumn();
         $table = $model->getTable();
-        
+
         $total = DB::table($table)->count();
         $withReference = DB::table($table)
             ->whereNotNull($column)
             ->where($column, '!=', '')
             ->count();
         $withoutReference = $total - $withReference;
-        
+
         $prefixes = DB::table($table)
             ->whereNotNull($column)
             ->where($column, '!=', '')
@@ -105,7 +105,7 @@ class ModelReference
             ->map(fn($ref) => explode('-', $ref)[0] ?? $ref)
             ->countBy()
             ->take(10);
-        
+
         return [
             'total_records' => $total,
             'with_reference' => $withReference,
@@ -127,18 +127,18 @@ class ModelReference
                 return $generator;
             }
         }
-        
+
         throw ReferenceGenerationException::invalidStrategy($strategy);
     }
 
     public function validateBulk(Collection $references, array $config = []): array
     {
         $results = [];
-        
+
         foreach ($references as $reference) {
             $results[$reference] = $this->validate($reference, $config);
         }
-        
+
         return $results;
     }
 
@@ -152,25 +152,25 @@ class ModelReference
     private function getModelConfig(Model $model): array
     {
         $modelClass = get_class($model);
-        
-        if (config('model-reference.performance.cache_config', true)) {
+
+        if (config('referenceable.performance.cache_config', true)) {
             $cacheKey = "model_reference_config_{$modelClass}";
-            $ttl = config('model-reference.performance.cache_ttl', 60);
-            
+            $ttl = config('referenceable.performance.cache_ttl', 60);
+
             return Cache::remember($cacheKey, now()->addMinutes($ttl), function () use ($model) {
                 return $model->getReferenceConfig();
             });
         }
-        
+
         return $model->getReferenceConfig();
     }
 
     private function getConfig(): array
     {
         if (empty($this->cachedConfig)) {
-            $this->cachedConfig = config('model-reference', []);
+            $this->cachedConfig = config('referenceable', []);
         }
-        
+
         return $this->cachedConfig;
     }
 
@@ -179,14 +179,14 @@ class ModelReference
         $column = $config['column_name'];
         $scope = $config['uniqueness_scope'];
         $tenantColumn = $config['tenant_column'] ?? null;
-        
+
         $query = match($scope) {
             'global' => DB::table($model->getTable()),
             'model' => $model::query(),
             'tenant' => $this->buildTenantQuery($model, $tenantColumn),
             default => $model::query(),
         };
-        
+
         return $query->where($column, $reference)->exists();
     }
 
@@ -195,7 +195,7 @@ class ModelReference
         if (!$tenantColumn || !$model->getAttribute($tenantColumn)) {
             return $model::query();
         }
-        
+
         return $model::where($tenantColumn, $model->getAttribute($tenantColumn));
     }
 }

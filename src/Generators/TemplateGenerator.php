@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace MoSaid\ModelReference\Generators;
+namespace MohamedSaid\Referenceable\Generators;
 
 use Illuminate\Database\Eloquent\Model;
-use MoSaid\ModelReference\Contracts\ReferenceGeneratorInterface;
-use MoSaid\ModelReference\Exceptions\ReferenceGenerationException;
+use MohamedSaid\Referenceable\Contracts\ReferenceGeneratorInterface;
+use MohamedSaid\Referenceable\Exceptions\ReferenceGenerationException;
 
 class TemplateGenerator implements ReferenceGeneratorInterface
 {
@@ -24,9 +24,9 @@ class TemplateGenerator implements ReferenceGeneratorInterface
         $format = $config['template']['format'] ?? '{PREFIX}{YEAR}{MONTH}{SEQ}';
         $randomLength = $config['template']['random_length'] ?? 4;
         $sequenceLength = $config['template']['sequence_length'] ?? 4;
-        
+
         $placeholders = $this->buildPlaceholders($model, $config, $randomLength, $sequenceLength);
-        
+
         $reference = $format;
         foreach ($placeholders as $placeholder => $value) {
             $reference = str_replace($placeholder, $value, $reference);
@@ -73,7 +73,7 @@ class TemplateGenerator implements ReferenceGeneratorInterface
     private function buildPlaceholders(Model $model, array $config, int $randomLength, int $sequenceLength): array
     {
         $now = now();
-        
+
         return [
             '{PREFIX}' => $config['prefix'] ?? '',
             '{SUFFIX}' => $config['suffix'] ?? '',
@@ -103,7 +103,7 @@ class TemplateGenerator implements ReferenceGeneratorInterface
         ]);
 
         $reference = $this->sequentialGenerator->generate($model, $sequentialConfig);
-        
+
         return (int) $reference;
     }
 }

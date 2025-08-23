@@ -1,16 +1,16 @@
 {
-    "name": "eg-mohamed/model-reference",
+    "name": "eg-mohamed/referenceable",
     "description": "Advanced Laravel package for generating customizable model reference numbers with flexible formats, sequential numbering, and comprehensive configuration options",
     "keywords": [
         "MoSaid",
         "laravel",
-        "model-reference",
+        "referenceable",
         "reference-generator",
         "unique-identifiers",
         "sequential-numbering",
         "model-traits"
     ],
-    "homepage": "https://github.com/eg-mohamed/model-reference",
+    "homepage": "https://github.com/eg-mohamed/referenceable",
     "license": "MIT",
     "authors": [
         {
@@ -38,13 +38,13 @@
     },
     "autoload": {
         "psr-4": {
-            "MoSaid\\ModelReference\\": "src/",
-            "MoSaid\\ModelReference\\Database\\Factories\\": "database/factories/"
+            "MohamedSaid\\Referenceable\\": "src/",
+            "MohamedSaid\\Referenceable\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "MoSaid\\ModelReference\\Tests\\": "tests/",
+            "MohamedSaid\\Referenceable\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -66,10 +66,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "MoSaid\\ModelReference\\ModelReferenceServiceProvider"
+                "MohamedSaid\\Referenceable\\ModelReferenceServiceProvider"
             ],
             "aliases": {
-                "ModelReference": "MoSaid\\ModelReference\\Facades\\ModelReference"
+                "ModelReference": "MohamedSaid\\Referenceable\\Facades\\ModelReference"
             }
         }
     },

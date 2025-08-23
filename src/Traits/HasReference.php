@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace MoSaid\ModelReference\Traits;
+namespace MohamedSaid\Referenceable\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
-use MoSaid\ModelReference\Contracts\ReferenceGeneratorInterface;
-use MoSaid\ModelReference\Exceptions\ReferenceGenerationException;
-use MoSaid\ModelReference\Exceptions\ReferenceValidationException;
-use MoSaid\ModelReference\ModelReference;
+use MohamedSaid\Referenceable\Contracts\ReferenceGeneratorInterface;
+use MohamedSaid\Referenceable\Exceptions\ReferenceGenerationException;
+use MohamedSaid\Referenceable\Exceptions\ReferenceValidationException;
+use MohamedSaid\Referenceable\ModelReference;
 
 trait HasReference
 {
@@ -113,53 +113,53 @@ trait HasReference
 
     public function getReferenceStrategy(): string
     {
-        return $this->referenceStrategy ?? config('model-reference.strategy', 'random');
+        return $this->referenceStrategy ?? config('referenceable.strategy', 'random');
     }
 
     public function getReferencePrefix(): string
     {
-        return $this->referencePrefix ?? config('model-reference.prefix', '');
+        return $this->referencePrefix ?? config('referenceable.prefix', '');
     }
 
     public function getReferenceSuffix(): string
     {
-        return $this->referenceSuffix ?? config('model-reference.suffix', '');
+        return $this->referenceSuffix ?? config('referenceable.suffix', '');
     }
 
     public function getReferenceSeparator(): string
     {
-        return $this->referenceSeparator ?? config('model-reference.separator', '-');
+        return $this->referenceSeparator ?? config('referenceable.separator', '-');
     }
 
     public function getReferenceLength(): int
     {
-        return $this->referenceLength ?? config('model-reference.length', 6);
+        return $this->referenceLength ?? config('referenceable.length', 6);
     }
 
     public function getReferenceCharacters(): string
     {
-        return $this->referenceCharacters ?? config('model-reference.characters', '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+        return $this->referenceCharacters ?? config('referenceable.characters', '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
     }
 
     public function getReferenceExcludedCharacters(): string
     {
-        return $this->referenceExcludedCharacters ?? config('model-reference.excluded_characters', '');
+        return $this->referenceExcludedCharacters ?? config('referenceable.excluded_characters', '');
     }
 
     public function getReferenceCase(): string
     {
-        return $this->referenceCase ?? config('model-reference.case', 'upper');
+        return $this->referenceCase ?? config('referenceable.case', 'upper');
     }
 
     public function getReferenceColumn(): string
     {
-        return $this->referenceColumn ?? config('model-reference.column_name', 'reference');
+        return $this->referenceColumn ?? config('referenceable.column_name', 'reference');
     }
 
     public function getReferenceSequentialConfig(): array
     {
         return array_merge(
-            config('model-reference.sequential', []),
+            config('referenceable.sequential', []),
             $this->referenceSequential ?? []
         );
     }
@@ -167,7 +167,7 @@ trait HasReference
     public function getReferenceTemplateConfig(): array
     {
         return array_merge(
-            config('model-reference.template', []),
+            config('referenceable.template', []),
             $this->referenceTemplate ?? []
         );
     }
@@ -175,29 +175,29 @@ trait HasReference
     public function getReferenceValidationConfig(): array
     {
         return array_merge(
-            config('model-reference.validation', []),
+            config('referenceable.validation', []),
             $this->referenceValidation ?? []
         );
     }
 
     public function getReferenceUniquenessScope(): string
     {
-        return $this->referenceUniquenessScope ?? config('model-reference.uniqueness_scope', 'model');
+        return $this->referenceUniquenessScope ?? config('referenceable.uniqueness_scope', 'model');
     }
 
     public function getReferenceTenantColumn(): ?string
     {
-        return $this->referenceTenantColumn ?? config('model-reference.tenant_column');
+        return $this->referenceTenantColumn ?? config('referenceable.tenant_column');
     }
 
     public function getReferenceCollisionStrategy(): string
     {
-        return $this->referenceCollisionStrategy ?? config('model-reference.collision_strategy', 'retry');
+        return $this->referenceCollisionStrategy ?? config('referenceable.collision_strategy', 'retry');
     }
 
     public function getReferenceMaxRetries(): int
     {
-        return $this->referenceMaxRetries ?? config('model-reference.max_retries', 100);
+        return $this->referenceMaxRetries ?? config('referenceable.max_retries', 100);
     }
 
 

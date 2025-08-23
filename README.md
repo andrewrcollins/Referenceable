@@ -1,11 +1,9 @@
-# Laravel Model Reference
+# Referenceable
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/eg-mohamed/model-reference.svg?style=flat-square)](https://packagist.org/packages/eg-mohamed/model-reference)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/eg-mohamed/model-reference/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/eg-mohamed/model-reference/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/eg-mohamed/model-reference/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/eg-mohamed/model-reference/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/eg-mohamed/model-reference.svg?style=flat-square)](https://packagist.org/packages/eg-mohamed/model-reference)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/eg-mohamed/referenceable.svg?style=flat-square)](https://packagist.org/packages/eg-mohamed/referenceable)
+[![Total Downloads](https://img.shields.io/packagist/dt/eg-mohamed/referenceable.svg?style=flat-square)](https://packagist.org/packages/eg-mohamed/referenceable)
 
-An advanced Laravel package for generating customizable model reference numbers with flexible formats, sequential numbering, template-based generation, and comprehensive configuration options.
+An advanced Laravel package for making models referenceable with customizable reference numbers, flexible formats, sequential numbering, template-based generation, and comprehensive configuration options.
 
 ## ✨ Features
 
@@ -25,13 +23,13 @@ An advanced Laravel package for generating customizable model reference numbers 
 Install the package via Composer:
 
 ```bash
-composer require eg-mohamed/model-reference
+composer require eg-mohamed/referenceable
 ```
 
 Install the package (creates necessary tables and publishes config):
 
 ```bash
-php artisan model-reference:install
+php artisan referenceable:install
 ```
 
 ## 📋 Quick Start
@@ -49,7 +47,7 @@ Schema::create('orders', function (Blueprint $table) {
 ### 2. Use the Trait in Your Model
 
 ```php
-use MoSaid\ModelReference\Traits\HasReference;
+use MohamedSaid\Referenceable\Traits\HasReference;
 
 class Order extends Model
 {
@@ -180,7 +178,7 @@ class Order extends Model
 
 ### Global Configuration
 
-Configure defaults in `config/model-reference.php`:
+Configure defaults in `config/referenceable.php`:
 
 ```php
 return [
@@ -283,7 +281,7 @@ $todayOrders = Order::referenceStartsWith('ORD-2024')->get();
 ### Batch Operations
 
 ```php
-use MoSaid\ModelReference\ModelReference;
+use MohamedSaid\ModelReference\ModelReference;
 
 $modelReference = app(ModelReference::class);
 
@@ -303,39 +301,39 @@ $stats = $modelReference->getStats(Order::class);
 
 ```bash
 # Install package and create tables
-php artisan model-reference:install
+php artisan referenceable:install
 
 # Force reinstallation
-php artisan model-reference:install --force
+php artisan referenceable:install --force
 ```
 
 ### Reference Management
 
 ```bash
 # Generate references for records without them
-php artisan model-reference:generate "App\Models\Order"
-php artisan model-reference:generate "App\Models\Order" --dry-run
-php artisan model-reference:generate "App\Models\Order" --batch=500
+php artisan referenceable:generate "App\Models\Order"
+php artisan referenceable:generate "App\Models\Order" --dry-run
+php artisan referenceable:generate "App\Models\Order" --batch=500
 
 # Validate existing references
-php artisan model-reference:validate "App\Models\Order"
-php artisan model-reference:validate "App\Models\Order" --fix
+php artisan referenceable:validate "App\Models\Order"
+php artisan referenceable:validate "App\Models\Order" --fix
 
 # Regenerate references (use with caution!)
-php artisan model-reference:regenerate "App\Models\Order" --id=123
-php artisan model-reference:regenerate "App\Models\Order" --all --dry-run
+php artisan referenceable:regenerate "App\Models\Order" --id=123
+php artisan referenceable:regenerate "App\Models\Order" --all --dry-run
 
 # Show reference statistics
-php artisan model-reference:stats "App\Models\Order"
-php artisan model-reference:stats "App\Models\Order" --json
+php artisan referenceable:stats "App\Models\Order"
+php artisan referenceable:stats "App\Models\Order" --json
 ```
 
 ### Package Information
 
 ```bash
 # Show available commands
-php artisan model-reference
-php artisan model-reference --list
+php artisan referenceable
+php artisan referenceable --list
 ```
 
 ## 📊 Multi-Tenancy Support
@@ -368,7 +366,7 @@ Schema::table('orders', function (Blueprint $table) {
 ### Configuration Caching
 
 ```php
-// In config/model-reference.php
+// In config/referenceable.php
 'performance' => [
     'cache_config' => true,  // Cache model configurations
     'cache_ttl' => 60,       // Cache for 60 minutes
@@ -383,7 +381,7 @@ Schema::table('orders', function (Blueprint $table) {
 
 1. Run the installation command:
 ```bash
-php artisan model-reference:install
+php artisan referenceable:install
 ```
 
 2. Update your models to use new configuration format:
@@ -403,7 +401,7 @@ protected $referenceTemplate = [
 
 3. Test your references:
 ```bash
-php artisan model-reference:validate "App\Models\Order"
+php artisan referenceable:validate "App\Models\Order"
 ```
 
 ## 🧪 Testing
