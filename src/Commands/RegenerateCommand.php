@@ -10,7 +10,7 @@ use MohamedSaid\Referenceable\ModelReference;
 
 class RegenerateCommand extends Command
 {
-    public $signature = 'model-reference:regenerate
+    public $signature = 'referenceable:regenerate
                         {model : The model class name}
                         {--id= : Specific record ID to regenerate}
                         {--all : Regenerate all references (use with caution)}

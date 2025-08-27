@@ -10,7 +10,7 @@ use Illuminate\Database\Schema\Blueprint;
 
 class InstallCommand extends Command
 {
-    public $signature = 'model-reference:install
+    public $signature = 'referenceable:install
                         {--force : Force the installation even if table exists}';
 
     public $description = 'Install the model reference package';

@@ -10,7 +10,7 @@ use MohamedSaid\Referenceable\ModelReference;
 
 class ValidateCommand extends Command
 {
-    public $signature = 'model-reference:validate
+    public $signature = 'referenceable:validate
                         {model : The model class name}
                         {--column= : Specific reference column name}
                         {--fix : Fix invalid references by regenerating them}

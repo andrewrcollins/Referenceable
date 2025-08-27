@@ -11,7 +11,7 @@ use MohamedSaid\Referenceable\ModelReference;
 
 class GenerateCommand extends Command
 {
-    public $signature = 'model-reference:generate
+    public $signature = 'referenceable:generate
                         {model : The model class name}
                         {--column= : Specific reference column name}
                         {--batch=100 : Batch size for processing}

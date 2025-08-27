@@ -10,7 +10,7 @@ use MohamedSaid\Referenceable\ModelReference;
 
 class StatsCommand extends Command
 {
-    public $signature = 'model-reference:stats
+    public $signature = 'referenceable:stats
                         {model : The model class name}
                         {--json : Output results as JSON}';
 
@@ -73,7 +73,7 @@ class StatsCommand extends Command
 
         if ($stats['coverage_percentage'] < 100) {
             $this->newLine();
-            $this->warn("Not all records have references. Run 'php artisan model-reference:generate {$modelClass}' to generate missing references.");
+            $this->warn("Not all records have references. Run 'php artisan referenceable:generate {$modelClass}' to generate missing references.");
         }
 
         if ($stats['coverage_percentage'] == 100 && $stats['total_records'] > 0) {
