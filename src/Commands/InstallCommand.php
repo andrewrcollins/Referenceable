@@ -56,7 +56,7 @@ class InstallCommand extends Command
     private function publishConfig(): void
     {
         $this->call('vendor:publish', [
-            '--tag' => 'model-reference-config',
+            '--tag' => 'referenceable-config',
             '--force' => $this->option('force'),
         ]);
     }
